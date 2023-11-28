@@ -1,0 +1,11 @@
+<div class="weather-container" *ngIf="country?.weather">
+  <span class="title">{{ country?.weather?.temp | celsius }}</span>
+  <span class="description">{{ country?.weather?.description }}</span>
+  <span class="icon-container">
+    <app-icon
+      [type]="country?.weather?.icon"
+      color="#fefefe"
+      size="56px"
+    ></app-icon>
+  </span>
+</div>

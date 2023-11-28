@@ -1,26 +1,24 @@
 # CapitalWeatherApp
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 17.0.3.
+This Angular project is designed to display weather information for different EU capital cities. It utilizes [Angular CLI](https://github.com/angular/angular-cli) version 17.0.3.
 
-## Development server
+## Getting started
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+To run this project locally, make sure you have Node.js and npm installed. The latest LTS version is recommended. You can download the latest LTS version from [Node.Js website](https://nodejs.org/).
 
-## Code scaffolding
+### Installing Dependencies
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+Navigate to the project root directory and run the `npm i` command to install the necessary dependencies.
 
-## Build
+### Development Server
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+After installing the dependencies, you can start the development server with the `npm run start:proxy` command.
 
-## Running unit tests
+Navigate to `http://localhost:4200/` in your web browser to view the application.
+This version of the app is currently static. To access different sections, you can manually update the URL in your browser:
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
-
-## Running end-to-end tests
-
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
+Current Capital View (default): `http://localhost:4200/capital`
+Capitals View: `http://localhost:4200/capitals`
 
 ## Further help
 

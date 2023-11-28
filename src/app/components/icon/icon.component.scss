@@ -1,0 +1,23 @@
+@import "variables";
+
+.material-symbols-outlined {
+  &.white {
+    color: $pozi-white;
+  }
+
+  &.yellow {
+    color: $pozi-yellow;
+  }
+
+  &.blue {
+    color: $pozi-blue;
+  }
+
+  &.dark-grey {
+    color: $pozi-dark-grey;
+  }
+}
+img {
+  object-fit: cover;
+  height: 100%;
+}

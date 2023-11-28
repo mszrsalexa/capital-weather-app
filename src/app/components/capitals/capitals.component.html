@@ -1,0 +1,7 @@
+<div class="container" *ngIf="euCountries$ | async as countries">
+  <ul>
+    <li *ngFor="let country of countries">
+      <app-widget [country]="country"></app-widget>
+    </li>
+  </ul>
+</div>

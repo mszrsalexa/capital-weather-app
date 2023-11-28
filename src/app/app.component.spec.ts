@@ -1,35 +1,34 @@
-import { TestBed } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
+import { TestBed, ComponentFixture } from '@angular/core/testing';
+import { Store, StoreModule } from '@ngrx/store';
 import { AppComponent } from './app.component';
+import { provideMockStore, MockStore } from '@ngrx/store/testing';
+import { requestLoadCountries } from './store/actions/country.actions';
 
 describe('AppComponent', () => {
-  beforeEach(async () => {
-    await TestBed.configureTestingModule({
-      imports: [
-        RouterTestingModule
-      ],
-      declarations: [
-        AppComponent
-      ],
-    }).compileComponents();
-  });
+  let fixture: ComponentFixture<AppComponent>;
+  let component: AppComponent;
+  let store: MockStore;
 
-  it('should create the app', () => {
-    const fixture = TestBed.createComponent(AppComponent);
-    const app = fixture.componentInstance;
-    expect(app).toBeTruthy();
-  });
+  const initialState = {
+    country: {},
+  };
 
-  it(`should have as title 'capital-weather-app'`, () => {
-    const fixture = TestBed.createComponent(AppComponent);
-    const app = fixture.componentInstance;
-    expect(app.title).toEqual('capital-weather-app');
-  });
+  beforeEach(() => {
+    TestBed.configureTestingModule({
+      declarations: [AppComponent],
+      imports: [RouterTestingModule, StoreModule.forRoot({})],
+      providers: [provideMockStore({ initialState })],
+    });
 
-  it('should render title', () => {
-    const fixture = TestBed.createComponent(AppComponent);
+    fixture = TestBed.createComponent(AppComponent);
+    component = fixture.componentInstance;
+    store = TestBed.inject<Store>(Store) as MockStore;
+
     fixture.detectChanges();
-    const compiled = fixture.nativeElement as HTMLElement;
-    expect(compiled.querySelector('h1')?.textContent).toContain('Hello, capital-weather-app');
+  });
+
+  it('should create', () => {
+    expect(component).toBeTruthy();
   });
 });

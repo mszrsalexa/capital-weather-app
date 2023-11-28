@@ -1,0 +1,7 @@
+<div class="capital-info" *ngIf="country?.flag">
+  <app-icon class="flag-icon" [type]="country?.flag"></app-icon>
+  <span class="capital"
+    >{{ country?.capitalName
+    }}<span class="country"> {{ country?.countryName }} </span></span
+  >
+</div>

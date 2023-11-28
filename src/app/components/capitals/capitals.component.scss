@@ -1,0 +1,17 @@
+@import "variables";
+
+.container {
+  background-color: $pozi-light-grey;
+  min-height: 100vh;
+  height: 100%;
+  padding-top: 15%;
+
+  ul {
+    list-style-type: none;
+    padding-left: 50%;
+  }
+
+  li {
+    padding: 5px;
+  }
+}

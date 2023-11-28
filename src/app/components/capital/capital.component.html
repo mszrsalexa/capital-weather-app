@@ -1,0 +1,4 @@
+<div class="container" *ngIf="country$ | async as country">
+  <app-widget [country]="country"></app-widget>
+  <app-weather [country]="country"></app-weather>
+</div>

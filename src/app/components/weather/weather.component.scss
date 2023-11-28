@@ -1,0 +1,39 @@
+@import "variables";
+
+$spacing: 20px;
+
+.weather-container {
+  width: 320px;
+  border-radius: 20px;
+  padding: $spacing;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  background: $pozi-blue-linear;
+
+  .title,
+  .description {
+    font-family: $font-family;
+    color: $pozi-white;
+    line-height: normal;
+  }
+
+  .title {
+    font-size: 60px;
+    font-weight: $font-weight-bold;
+  }
+
+  .description {
+    font-size: 18px;
+    text-transform: capitalize;
+    font-weight: $font-weight-normal;
+    font-weight: 500;
+  }
+
+  .icon-container {
+    display: flex;
+    position: absolute;
+    right: $spacing;
+    top: $spacing;
+  }
+}

@@ -1,0 +1,121 @@
+<ng-container [ngSwitch]="type">
+  <span
+    *ngSwitchCase="'01d'"
+    [ngStyle]="{ 'font-size': size, color: color }"
+    class="material-symbols-outlined yellow"
+  >
+    clear_day
+  </span>
+  <span
+    *ngSwitchCase="'01n'"
+    [ngStyle]="{ 'font-size': size, color: color }"
+    class="material-symbols-outlined dark-grey"
+  >
+    clear_night
+  </span>
+  <span
+    *ngSwitchCase="'02d'"
+    [ngStyle]="{ 'font-size': size, color: color }"
+    class="material-symbols-outlined yellow"
+  >
+    partly_cloudy_day
+  </span>
+  <span
+    *ngSwitchCase="'02n'"
+    [ngStyle]="{ 'font-size': size, color: color }"
+    class="material-symbols-outlined dark-grey"
+  >
+    partly_cloudy_night
+  </span>
+  <span
+    *ngSwitchCase="'03d'"
+    [ngStyle]="{ 'font-size': size, color: color }"
+    class="material-symbols-outlined blue"
+  >
+    cloudy
+  </span>
+  <span
+    *ngSwitchCase="'03n'"
+    [ngStyle]="{ 'font-size': size, color: color }"
+    class="material-symbols-outlined blue"
+  >
+    cloudy </span
+  ><span
+    *ngSwitchCase="'04d'"
+    [ngStyle]="{ 'font-size': size, color: color }"
+    class="material-symbols-outlined blue"
+  >
+    cloudy
+  </span>
+  <span
+    *ngSwitchCase="'04n'"
+    [ngStyle]="{ 'font-size': size, color: color }"
+    class="material-symbols-outlined blue"
+  >
+    cloudy </span
+  ><span
+    *ngSwitchCase="'09d'"
+    [ngStyle]="{ 'font-size': size, color: color }"
+    class="material-symbols-outlined blue"
+  >
+    rainy
+  </span>
+  <span
+    *ngSwitchCase="'09n'"
+    [ngStyle]="{ 'font-size': size, color: color }"
+    class="material-symbols-outlined blue"
+  >
+    rainy </span
+  ><span
+    *ngSwitchCase="'10d'"
+    [ngStyle]="{ 'font-size': size, color: color }"
+    class="material-symbols-outlined blue"
+  >
+    rainy
+  </span>
+  <span
+    *ngSwitchCase="'10n'"
+    [ngStyle]="{ 'font-size': size, color: color }"
+    class="material-symbols-outlined blue"
+  >
+    rainy </span
+  ><span
+    *ngSwitchCase="'11d'"
+    [ngStyle]="{ 'font-size': size, color: color }"
+    class="material-symbols-outlined blue"
+    >thunderstorm
+  </span>
+  <span
+    *ngSwitchCase="'11n'"
+    [ngStyle]="{ 'font-size': size, color: color }"
+    class="material-symbols-outlined blue"
+    >thunderstorm
+  </span>
+  <span
+    *ngSwitchCase="'13d'"
+    [ngStyle]="{ 'font-size': size, color: color }"
+    class="material-symbols-outlined blue"
+    >cloudy_snowing
+  </span>
+  <span
+    *ngSwitchCase="'13n'"
+    [ngStyle]="{ 'font-size': size, color: color }"
+    class="material-symbols-outlined blue"
+    >cloudy_snowing
+  </span>
+  <span
+    *ngSwitchCase="'50d'"
+    [ngStyle]="{ 'font-size': size, color: color }"
+    class="material-symbols-outlined dark-grey"
+    >foggy
+  </span>
+  <span
+    *ngSwitchCase="'50n'"
+    [ngStyle]="{ 'font-size': size, color: color }"
+    class="material-symbols-outlined dark-grey"
+    >foggy
+  </span>
+  <span *ngSwitchDefault>
+    <img *ngIf="type" [src]="type" />
+  </span>
+</ng-container>
