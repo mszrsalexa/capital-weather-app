@@ -1,4 +1,22 @@
-<div class="container" *ngIf="country$ | async as country">
-  <app-widget [country]="country"></app-widget>
-  <app-weather [country]="country"></app-weather>
+<div class="map-container" *ngIf="country$ | async as country">
+  <app-google-maps [mapTypeId]="selectedMapType"></app-google-maps>
+
+  <span class="location-container">
+    <app-widget [country]="country" [isActive]="true"></app-widget>
+    <app-icon-button
+      type="layers"
+      [menuItems]="mapTypeMenuItems"
+      [selectedMenuItem]="selectedMapType"
+      selectedMenuItemIcon="done"
+      (menuItemSelected)="changeMapType($event)"
+    >
+    </app-icon-button>
+  </span>
+  <span class="weather-container">
+    <app-weather [country]="country"></app-weather>
+    <app-forecast
+      *ngIf="(country$ | async)?.fiveDayForecast"
+      [country]="country"
+    ></app-forecast>
+  </span>
 </div>

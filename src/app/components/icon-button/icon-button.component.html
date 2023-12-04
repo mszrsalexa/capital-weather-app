@@ -1,0 +1,31 @@
+<button
+  class="button"
+  [routerLink]="routerLink"
+  mat-button
+  [matMenuTriggerFor]="menuItems ? menu : null"
+>
+  <app-icon [type]="type" [fontSize]="fontSize" [color]="color"></app-icon>
+</button>
+
+<mat-menu #menu="matMenu">
+  <ng-container *ngFor="let menuItem of menuItems">
+    <button
+      class="menu-item-btn"
+      mat-menu-item
+      (click)="onMenuItemClick(menuItem)"
+    >
+      <span class="menu-item">
+        <span class="menu-item-label">{{
+          "menu_item_" + menuItem | displayName
+        }}</span>
+        <span class="select-icon">
+          <app-icon
+            *ngIf="selectedMenuItem === menuItem"
+            [type]="selectedMenuItemIcon"
+            color="green"
+          ></app-icon>
+        </span>
+      </span>
+    </button>
+  </ng-container>
+</mat-menu>

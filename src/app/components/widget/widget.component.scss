@@ -1,34 +1,60 @@
 @import "variables";
 
-.capital-info {
-  width: 320px;
+.container {
   border-radius: 20px;
-  padding: 10px;
+  padding: 8px;
   display: flex;
-  background-color: $pozi-white;
-}
+  background-color: $white;
+  cursor: pointer;
+  justify-content: space-between;
 
-.capital,
-.country {
-  font-family: $font-family;
-  color: $pozi-black;
-  font-size: 18px;
-  line-height: normal;
-}
+  .country-info,
+  .weather-info {
+    display: flex;
+  }
 
-.capital {
-  font-weight: $font-weight-bold;
-}
+  .weather-info {
+    margin-left: 15px;
+  }
 
-.country {
-  font-weight: $font-weight-normal;
-}
+  .capital,
+  .country,
+  .temperature {
+    font-family: $font-family;
+    color: $black;
+    font-size: 18px;
+    line-height: normal;
+  }
 
-.flag-icon {
-  width: 20px;
-  height: 20px;
-  position: relative;
-  overflow: hidden;
-  border-radius: 50%;
-  margin-right: 10px;
+  .capital {
+    font-weight: $font-weight-bold;
+  }
+
+  .country {
+    font-weight: $font-weight-normal;
+  }
+
+  .temperature {
+    color: $dark-grey;
+    font-weight: $font-weight-normal;
+  }
+
+  .flag-icon {
+    width: 22px;
+    height: 22px;
+    position: relative;
+    overflow: hidden;
+    border-radius: 50%;
+    margin-right: 10px;
+
+    img {
+      object-fit: cover;
+      height: 100%;
+    }
+  }
+
+  .my-location-icon,
+  .weather-icon {
+    margin-left: 5px;
+  }
 }

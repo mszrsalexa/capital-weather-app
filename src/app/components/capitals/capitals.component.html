@@ -1,7 +1,38 @@
-<div class="container" *ngIf="euCountries$ | async as countries">
-  <ul>
-    <li *ngFor="let country of countries">
-      <app-widget [country]="country"></app-widget>
-    </li>
-  </ul>
+<div class="capitals-container" [class.hide-gradient]="isAtBottom">
+  <div class="capitals-header">
+    <div class="header-actions">
+      <app-icon-button
+        type="arrow_back"
+        [routerLink]="'/capital'"
+      ></app-icon-button>
+      <app-icon-button
+        type="sort"
+        [menuItems]="sortMenuItems"
+        [selectedMenuItem]="(sortConfig$ | async)?.type"
+        [selectedMenuItemIcon]="
+          (sortConfig$ | async)?.order === 'asc'
+            ? 'keyboard_arrow_up'
+            : 'keyboard_arrow_down'
+        "
+        (menuItemSelected)="handleSorting($event)"
+      >
+      </app-icon-button>
+    </div>
+
+    <div class="title">{{ "capitals_title" | displayName }}</div>
+  </div>
+
+  <div class="capitals-list" #capitalsList>
+    <ng-container *ngIf="currentCountry$ | async as currentCountry">
+      <div class="country">
+        <app-widget [country]="currentCountry" [isActive]="true"></app-widget>
+      </div>
+    </ng-container>
+
+    <ng-container *ngIf="euCountries$ | async as euCountries">
+      <div class="country" *ngFor="let country of euCountries">
+        <app-widget [country]="country"></app-widget>
+      </div>
+    </ng-container>
+  </div>
 </div>

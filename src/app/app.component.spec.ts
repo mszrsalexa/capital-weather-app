@@ -3,7 +3,7 @@ import { TestBed, ComponentFixture } from '@angular/core/testing';
 import { Store, StoreModule } from '@ngrx/store';
 import { AppComponent } from './app.component';
 import { provideMockStore, MockStore } from '@ngrx/store/testing';
-import { requestLoadCountries } from './store/actions/country.actions';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 
 describe('AppComponent', () => {
   let fixture: ComponentFixture<AppComponent>;
@@ -17,7 +17,11 @@ describe('AppComponent', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
       declarations: [AppComponent],
-      imports: [RouterTestingModule, StoreModule.forRoot({})],
+      imports: [
+        RouterTestingModule,
+        StoreModule.forRoot({}),
+        HttpClientTestingModule,
+      ],
       providers: [provideMockStore({ initialState })],
     });
 

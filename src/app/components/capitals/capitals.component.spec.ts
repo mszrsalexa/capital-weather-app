@@ -1,33 +1,31 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { Store, StoreModule, select } from '@ngrx/store';
-import { MockStore, provideMockStore } from '@ngrx/store/testing';
 import { CapitalsComponent } from './capitals.component';
+import { StoreModule } from '@ngrx/store';
+import { IconButtonComponent } from '../icon-button/icon-button.component';
 import { WidgetComponent } from '../widget/widget.component';
+import { DisplayNamePipe } from '../../shared/pipes/display-name.pipe';
 import { IconComponent } from '../icon/icon.component';
+import { MatMenuModule } from '@angular/material/menu';
+import { RouterTestingModule } from '@angular/router/testing';
 
 describe('CapitalsComponent', () => {
   let component: CapitalsComponent;
   let fixture: ComponentFixture<CapitalsComponent>;
-  let store: MockStore;
-
-  const initialState = {
-    country: {
-      euCountries: [{}],
-    },
-  };
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      declarations: [CapitalsComponent, WidgetComponent, IconComponent],
-      imports: [StoreModule.forRoot({})],
-      providers: [provideMockStore({ initialState })],
+      declarations: [
+        CapitalsComponent,
+        IconButtonComponent,
+        WidgetComponent,
+        DisplayNamePipe,
+        IconComponent,
+      ],
+      imports: [StoreModule.forRoot({}), MatMenuModule, RouterTestingModule],
     });
 
     fixture = TestBed.createComponent(CapitalsComponent);
     component = fixture.componentInstance;
-    store = TestBed.inject<Store>(Store) as MockStore;
-
-    fixture.detectChanges();
   });
 
   it('should create', () => {

@@ -3,7 +3,6 @@ import {
   HttpClientTestingModule,
   HttpTestingController,
 } from '@angular/common/http/testing';
-import { Store, StoreModule } from '@ngrx/store';
 import { CountryService } from './country.service';
 
 describe('CountryService', () => {
@@ -12,8 +11,8 @@ describe('CountryService', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      imports: [HttpClientTestingModule, StoreModule.forRoot({})],
-      providers: [CountryService, Store],
+      imports: [HttpClientTestingModule],
+      providers: [CountryService],
     });
 
     service = TestBed.inject(CountryService);
@@ -28,15 +27,40 @@ describe('CountryService', () => {
     expect(service).toBeTruthy();
   });
 
-  it('should return countries from API', () => {
-    const mockCountries = [{}];
+  it('should load EU countries', inject(
+    [CountryService, HttpTestingController],
+    (countryService: CountryService, httpMock: HttpTestingController) => {
+      const mockEuCountries = [{ name: 'Country1' }, { name: 'Country2' }];
 
-    service.loadCountries().subscribe((countries) => {
-      expect(countries).toEqual(mockCountries);
-    });
+      countryService.loadEuCountries().subscribe((countries) => {
+        expect(countries).toEqual(mockEuCountries);
+      });
 
-    const req = httpMock.expectOne(service.url);
-    expect(req.request.method).toBe('GET');
-    req.flush(mockCountries);
-  });
+      const req = httpMock.expectOne(
+        'https://restcountries.com/v2/regionalbloc/eu'
+      );
+      expect(req.request.method).toBe('GET');
+      req.flush(mockEuCountries);
+    }
+  ));
+
+  it('should load capital info', inject(
+    [CountryService, HttpTestingController],
+    (countryService: CountryService, httpMock: HttpTestingController) => {
+      const mockCapitalInfo = [
+        { ccn3: '1', capitalInfo: { latlng: [10, 20] } },
+        { ccn3: '2', capitalInfo: { latlng: [30, 40] } },
+      ];
+
+      countryService.loadCapitalInfo().subscribe((capitalInfo) => {
+        expect(capitalInfo).toEqual(mockCapitalInfo);
+      });
+
+      const req = httpMock.expectOne(
+        'https://restcountries.com/v3.1/region/eu?fields=capitalInfo,ccn3'
+      );
+      expect(req.request.method).toBe('GET');
+      req.flush(mockCapitalInfo);
+    }
+  ));
 });

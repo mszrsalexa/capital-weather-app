@@ -5,11 +5,15 @@ import { HttpClient } from '@angular/common/http';
   providedIn: 'root',
 })
 export class CountryService {
-  url = 'https://restcountries.com/v3.1/all';
-
   constructor(private http: HttpClient) {}
 
-  loadCountries() {
-    return this.http.get<any[]>(this.url);
+  loadEuCountries() {
+    return this.http.get<any[]>('https://restcountries.com/v2/regionalbloc/eu');
+  }
+
+  loadCapitalInfo() {
+    return this.http.get<any[]>(
+      'https://restcountries.com/v3.1/region/eu?fields=capitalInfo,ccn3'
+    );
   }
 }

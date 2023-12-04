@@ -1,7 +1,22 @@
-<div class="capital-info" *ngIf="country?.flag">
-  <app-icon class="flag-icon" [type]="country?.flag"></app-icon>
-  <span class="capital"
-    >{{ country?.capitalName
-    }}<span class="country"> {{ country?.countryName }} </span></span
-  >
+<div class="container" *ngIf="country?.flag" (click)="navigate()">
+  <span class="country-info">
+    <span class="flag-icon">
+      <img [src]="country?.flag" />
+    </span>
+    <span class="capital"
+      >{{ country?.capital
+      }}<span class="country"> {{ country?.country }} </span></span
+    >
+    <app-icon
+      *ngIf="isActive"
+      class="my-location-icon"
+      type="my_location"
+      color="green"
+    ></app-icon>
+  </span>
+
+  <span class="weather-info" *ngIf="isCapitalsRoute">
+    <span class="temperature">{{ country?.weather?.temp | celsius }}</span>
+    <app-icon class="weather-icon" [type]="country?.weather?.icon"></app-icon>
+  </span>
 </div>

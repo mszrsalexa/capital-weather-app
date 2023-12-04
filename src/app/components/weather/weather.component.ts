@@ -8,4 +8,6 @@ import { Country } from '../../models/country.model';
 })
 export class WeatherComponent {
   @Input() country: Country | undefined;
+  iconSize = 56;
+  iconColor = 'white';
 }

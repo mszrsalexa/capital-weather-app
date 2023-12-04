@@ -1,14 +1,10 @@
-import { TestBed } from '@angular/core/testing';
+import { TestBed, fakeAsync, tick } from '@angular/core/testing';
 import {
   HttpClientTestingModule,
   HttpTestingController,
 } from '@angular/common/http/testing';
 import { WeatherService } from './weather.service';
-import {
-  Country,
-  ForecastApiResponse,
-  WeatherApiResponse,
-} from '../models/country.model';
+import { Country } from '../models/country.model';
 
 describe('WeatherService', () => {
   let service: WeatherService;
@@ -32,55 +28,52 @@ describe('WeatherService', () => {
     expect(service).toBeTruthy();
   });
 
-  it('should load current weather', () => {
-    const mockCountry: Country = {
-      coordinates: { lat: 12.34, lng: 56.78 },
-      countryName: 'test',
-      capitalName: 'test',
-      flag: 'test',
-    };
+  it('should load current weather', fakeAsync(() => {
+    const country: Country = { coordinates: { lat: 1, lng: 1 } } as any;
+    const weatherApiResponse = {
+      main: { temp: 25 },
+      weather: [{ description: 'Clear' }],
+    } as any;
 
-    const mockResponse: WeatherApiResponse = {
-      coord: {},
-      main: { temp: 0 },
-      weather: [{ description: 'test', icon: 'test' }],
-    };
+    let result: any;
 
-    service.loadCurrentWeather(mockCountry).subscribe((response) => {
-      expect(response).toEqual(mockResponse);
+    service.loadCurrentWeather(country).subscribe((response) => {
+      result = response;
     });
 
-    const req = httpMock.expectOne(
-      `${service.baseUrl}/weather?lat=${mockCountry.coordinates.lat}&lon=${mockCountry.coordinates.lng}&units=metric&appid=65ecd9f4ad1a12c46d0845b39a6452ca`
+    const req = httpMock.expectOne((req) =>
+      req.url.startsWith(
+        `${service.baseUrl}/weather?lat=1&lon=1&units=metric&appid=`
+      )
     );
-    expect(req.request.method).toBe('GET');
-    req.flush(mockResponse);
-  });
+    req.flush(weatherApiResponse);
 
-  it('should load five-day forecast', () => {
-    const mockCountry: Country = {
-      coordinates: { lat: 12.34, lng: 56.78 },
-      countryName: '',
-      capitalName: '',
-      flag: '',
-    };
+    tick();
 
-    const mockResponse: ForecastApiResponse = {
-      list: [
-        {
-          dt_txt: 'test',
-          main: { temp_min: 0, temp_max: 4 },
-        },
-      ],
-    };
-    service.loadFiveDayForecast(mockCountry).subscribe((response) => {
-      expect(response).toEqual(mockResponse);
+    expect(result).toEqual(weatherApiResponse);
+  }));
+
+  it('should load five-day forecast', fakeAsync(() => {
+    const coordinates = { lat: 1, lng: 1 };
+    const forecastApiResponse = {
+      list: [{ main: { temp: 20 }, weather: [{ description: 'Cloudy' }] }],
+    } as any;
+
+    let result: any;
+
+    service.loadFiveDayForecast(coordinates).subscribe((response) => {
+      result = response;
     });
 
-    const req = httpMock.expectOne(
-      `${service.baseUrl}/forecast?lat=${mockCountry.coordinates.lat}&lon=${mockCountry.coordinates.lng}&units=metric&appid=65ecd9f4ad1a12c46d0845b39a6452ca`
+    const req = httpMock.expectOne((req) =>
+      req.url.startsWith(
+        `${service.baseUrl}/forecast?lat=1&lon=1&units=metric&appid=`
+      )
     );
-    expect(req.request.method).toBe('GET');
-    req.flush(mockResponse);
-  });
+    req.flush(forecastApiResponse);
+
+    tick();
+
+    expect(result).toEqual(forecastApiResponse);
+  }));
 });

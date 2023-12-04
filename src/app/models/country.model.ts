@@ -1,10 +1,10 @@
 export interface Country {
-  countryName: string;
-  capitalName: string;
+  country: string;
+  capital: string;
   flag: string;
   coordinates: Coordinates;
   weather?: Weather;
-  forecast?: Forecast[];
+  fiveDayForecast?: { coordinates: Coordinates; forecast: Forecast[] };
 }
 
 export interface Coordinates {
@@ -13,14 +13,15 @@ export interface Coordinates {
 }
 
 export interface WeatherApiResponse {
-  coord: {};
-  main: { temp: number };
+  main: { temp: number; temp_min: number; temp_max: number };
   weather: { description: string; icon: string }[];
 }
 
 export interface Weather {
-  coordinates: {};
+  coordinates: Coordinates;
   temp: number;
+  temp_max: number;
+  temp_min: number;
   description: string;
   icon: string;
 }
@@ -28,14 +29,18 @@ export interface Weather {
 export interface ForecastApiResponse {
   list: {
     dt_txt: string;
-    main: { temp_min: number; temp_max: number };
+    main: { temp: number; temp_min: number; temp_max: number };
+    weather: { description: string; icon: string }[];
   }[];
 }
 
 export interface Forecast {
   date: string;
+  day: string;
   temp_max: number;
   temp_min: number;
+  description: string;
+  icon: string;
 }
 
 export interface DistanceMatrixResponse {
@@ -50,3 +55,12 @@ export interface DistanceMatrixElement {
     value: number;
   };
 }
+
+export interface SortConfig {
+  type: SortType;
+  order: SortOrder;
+}
+
+export type MapType = 'roadmap' | 'satellite';
+export type SortType = 'country' | 'capital' | 'weather.temp';
+export type SortOrder = 'asc' | 'desc';

@@ -4,51 +4,78 @@ import {
   loadCurrentWeather,
   loadEuCountries,
   loadFiveDayForecast,
-  requestCurrentWeather,
-  requestCurrentCountry,
-  requestFiveDayForecast,
   requestLoadCountries,
-  updateCurrentCountry,
+  updateActiveLocation,
+  updateSortConfig,
 } from '../actions/country.actions';
 import { CountryState } from '../states/country.state';
+import { Coordinates, SortConfig, SortOrder } from '../../models/country.model';
 
-export const initialState: CountryState = {
+const defaultLocation: Coordinates = {
+  lat: 0,
+  lng: 0,
+};
+
+const defaultSorting: SortConfig = {
+  type: 'capital',
+  order: 'asc',
+};
+
+const initialState: CountryState = {
   euCountries: [],
-  currentCountry: {
-    countryName: '',
-    capitalName: '',
-    flag: '',
-    coordinates: {
-      lat: 47.5,
-      lng: 19.08,
-    },
-  },
+  activeLocation: defaultLocation,
+  sortConfig: defaultSorting,
+  isLoading: false,
 };
 
 export const countryReducer = createReducer(
   initialState,
-  on(requestLoadCountries, (state) => ({ ...state })),
+  on(requestLoadCountries, (state) => ({ ...state, isLoading: true })),
   on(loadEuCountries, (state, { euCountries }) => ({
     ...state,
     euCountries: euCountries,
   })),
-  on(requestCurrentCountry, (state) => ({ ...state })),
-  on(updateCurrentCountry, (state, { currentCountry }) => ({
+  on(updateActiveLocation, (state, { location }) => ({
     ...state,
-    currentCountry: currentCountry,
+    activeLocation: location,
+    isLoading: false,
   })),
-  on(requestCurrentWeather, (state) => ({
+  on(loadCurrentWeather, (state, { weathers }) => ({
     ...state,
+    euCountries: state.euCountries.map((country) => {
+      const weather = weathers.find((weather) =>
+        isMatchingCoordinates(country.coordinates, weather.coordinates)
+      );
+
+      return weather ? { ...country, weather } : country;
+    }),
   })),
-  on(loadCurrentWeather, (state, { currentWeather }) => ({
+  on(loadFiveDayForecast, (state, fiveDayForecast) => ({
     ...state,
-    currentCountry: { ...state.currentCountry, weather: currentWeather },
+    euCountries: state.euCountries.map((country) => {
+      return isMatchingCoordinates(
+        country.coordinates,
+        fiveDayForecast.coordinates
+      )
+        ? { ...country, fiveDayForecast }
+        : country;
+    }),
   })),
-  on(requestFiveDayForecast, (state) => ({
+  on(updateSortConfig, (state, { sortType }) => ({
     ...state,
-  })),
-  on(loadFiveDayForecast, (state, { forecast }) => ({
-    ...state,
-    currentCountry: { ...state.currentCountry, forecast: forecast },
+    sortConfig: {
+      type: sortType,
+      order:
+        state.sortConfig.type === sortType && state.sortConfig.order === 'asc'
+          ? ('desc' as SortOrder)
+          : ('asc' as SortOrder),
+    },
   }))
 );
+
+const isMatchingCoordinates = (
+  coord1: Coordinates,
+  coord2: Coordinates
+): boolean => {
+  return coord1.lat === coord2.lat && coord1.lng === coord2.lng;
+};

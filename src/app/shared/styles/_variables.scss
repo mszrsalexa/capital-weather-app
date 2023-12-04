@@ -1,11 +1,15 @@
-$pozi-dark-grey: #8ca0b4;
-$pozi-light-grey: #e8eef4;
-$pozi-yellow: #f0c800;
-$pozi-blue: #14b4f0;
-$pozi-black: #2c343c;
-$pozi-white: #fefefe;
-$pozi-green: #8cc814;
-$pozi-blue-linear: linear-gradient(91.2deg, #28c8f0 0%, #14b4f0 100%);
+$dark-grey: #8ca0b4;
+$mid-grey: #b4c8dc;
+$light-grey: #e8eef4;
+$yellow: #f0c800;
+$blue: #14b4f0;
+$black: #2c343c;
+$white: #fefefe;
+$green: #8cc814;
+
+$blue-linear: linear-gradient(91.2deg, #28c8f0 0%, $blue 100%);
+$yellow-linear: linear-gradient(91.2deg, #f0dc14 0%, $yellow 100%);
+$grey-linear: linear-gradient(91.2deg, #adb8c5 0%, $dark-grey 100%);
 
 $font-family: "Fredoka", sans-serif;
 $font-weight-normal: 400;

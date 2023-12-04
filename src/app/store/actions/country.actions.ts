@@ -1,5 +1,11 @@
 import { createAction, props } from '@ngrx/store';
-import { Country, Forecast, Weather } from '../../models/country.model';
+import {
+  Coordinates,
+  Country,
+  Forecast,
+  SortType,
+  Weather,
+} from '../../models/country.model';
 
 export const requestLoadCountries = createAction(
   '[Country] Request Load Counties'
@@ -10,29 +16,22 @@ export const loadEuCountries = createAction(
   props<{ euCountries: Country[] }>()
 );
 
-export const requestCurrentCountry = createAction(
-  '[Country] Request Default Country'
-);
-
-export const updateCurrentCountry = createAction(
-  '[Country] Update Default Country',
-  props<{ currentCountry: Country }>()
-);
-
-export const requestCurrentWeather = createAction(
-  '[Country] Request Current Weather'
+export const updateActiveLocation = createAction(
+  '[Country] Update Active Location',
+  props<{ location: Coordinates }>()
 );
 
 export const loadCurrentWeather = createAction(
   '[Country] Load Current Weather',
-  props<{ currentWeather: Weather }>()
-);
-
-export const requestFiveDayForecast = createAction(
-  '[Country] Request 5-day Forecast'
+  props<{ weathers: Weather[] }>()
 );
 
 export const loadFiveDayForecast = createAction(
   '[Country] Load 5-day Forecast',
-  props<{ forecast: Forecast[] }>()
+  props<{ coordinates: Coordinates; forecast: Forecast[] }>()
+);
+
+export const updateSortConfig = createAction(
+  '[Country] Update Sort Config',
+  props<{ sortType: SortType }>()
 );

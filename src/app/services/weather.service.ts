@@ -1,17 +1,19 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs';
 import {
+  Coordinates,
   Country,
   ForecastApiResponse,
   WeatherApiResponse,
 } from '../models/country.model';
-import { Observable } from 'rxjs';
+import { environment } from '../../environments/environment';
 
 @Injectable({
   providedIn: 'root',
 })
 export class WeatherService {
-  private apiKey = '65ecd9f4ad1a12c46d0845b39a6452ca';
+  private apiKey = environment.openWeatherApiKey;
   baseUrl = 'https://api.openweathermap.org/data/2.5';
 
   constructor(private http: HttpClient) {}
@@ -22,9 +24,10 @@ export class WeatherService {
     return this.http.get<WeatherApiResponse>(url);
   }
 
-  loadFiveDayForecast(country: Country): Observable<ForecastApiResponse> {
-    const url = `${this.baseUrl}/forecast?lat=${country.coordinates.lat}&lon=${country.coordinates.lng}&units=metric&appid=${this.apiKey}`;
-
+  loadFiveDayForecast(
+    coordinates: Coordinates
+  ): Observable<ForecastApiResponse> {
+    const url = `${this.baseUrl}/forecast?lat=${coordinates.lat}&lon=${coordinates.lng}&units=metric&appid=${this.apiKey}`;
     return this.http.get<ForecastApiResponse>(url);
   }
 }

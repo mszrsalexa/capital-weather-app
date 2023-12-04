@@ -3,18 +3,18 @@
 $spacing: 20px;
 
 .weather-container {
-  width: 320px;
+  width: 360px;
   border-radius: 20px;
   padding: $spacing;
   position: relative;
   display: flex;
   flex-direction: column;
-  background: $pozi-blue-linear;
 
   .title,
+  .subtitle,
   .description {
     font-family: $font-family;
-    color: $pozi-white;
+    color: $white;
     line-height: normal;
   }
 
@@ -23,11 +23,16 @@ $spacing: 20px;
     font-weight: $font-weight-bold;
   }
 
+  .subtitle {
+    font-size: 18px;
+    text-transform: capitalize;
+    font-weight: $font-weight-bold;
+  }
+
   .description {
     font-size: 18px;
     text-transform: capitalize;
     font-weight: $font-weight-normal;
-    font-weight: 500;
   }
 
   .icon-container {

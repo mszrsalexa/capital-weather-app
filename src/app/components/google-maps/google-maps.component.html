@@ -1,0 +1,10 @@
+<google-map
+  (mapInitialized)="onMapReady($event)"
+  width="100vw"
+  height="100vh"
+  [options]="options"
+  *ngIf="apiLoaded$ | async"
+>
+  <map-marker [position]="marker.position" [options]="markerOptions">
+  </map-marker>
+</google-map>

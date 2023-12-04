@@ -1,1 +1,13 @@
+@import "variables";
 
+.loading-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  background-color: $light-grey;
+
+  mat-spinner::ng-deep circle {
+    stroke: $dark-grey;
+  }
+}

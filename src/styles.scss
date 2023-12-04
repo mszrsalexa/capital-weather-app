@@ -1,4 +1,3 @@
-/* You can add global styles to this file, and also import other style files */
 @import "variables";
 
 html {
@@ -65,4 +64,34 @@ img {
 table {
   border-collapse: collapse;
   width: 100%;
+}
+
+.icon-01d,
+.icon-02d {
+  color: $yellow;
+  background: $yellow-linear;
+}
+
+.icon-03d,
+.icon-03n,
+.icon-04d,
+.icon-04n,
+.icon-09d,
+.icon-09n,
+.icon-10d,
+.icon-10n,
+.icon-11d,
+.icon-11n,
+.icon-13d,
+.icon-13n {
+  color: $blue;
+  background: $blue-linear;
+}
+
+.icon-01n,
+.icon-02n,
+.icon-50d,
+.icon-50n {
+  color: $dark-grey;
+  background: $grey-linear;
 }

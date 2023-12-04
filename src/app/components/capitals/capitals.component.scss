@@ -1,17 +1,65 @@
 @import "variables";
 
-.container {
-  background-color: $pozi-light-grey;
+.capitals-container {
+  background-color: $light-grey;
   min-height: 100vh;
-  height: 100%;
-  padding-top: 15%;
+  height: fit-content;
+  padding-top: 20vh;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  gap: 20%;
 
-  ul {
-    list-style-type: none;
-    padding-left: 50%;
+  &:after {
+    content: "";
+    position: absolute;
+    display: block;
+    bottom: 0;
+    width: 100%;
+    height: 40px;
+    background: linear-gradient(transparent 0%, $light-grey 100%);
+    pointer-events: none;
   }
 
-  li {
-    padding: 5px;
+  &.hide-gradient:after {
+    display: none;
+  }
+
+  .capitals-header {
+    display: flex;
+    flex-direction: column;
+
+    .header-actions {
+      :not(:last-child) {
+        margin-right: 8px;
+      }
+    }
+
+    .title {
+      font-family: $font-family;
+      color: $white;
+      font-size: 60px;
+      line-height: normal;
+      font-weight: $font-weight-bold;
+    }
+  }
+
+  .capitals-list {
+    display: flex;
+    flex-direction: column;
+    height: 80vh;
+    overflow-y: scroll;
+
+    .country {
+      height: 100%;
+
+      &:nth-child(1) {
+        padding-bottom: 15px;
+      }
+
+      &:not(:nth-child(1)) {
+        padding-bottom: 5px;
+      }
+    }
   }
 }

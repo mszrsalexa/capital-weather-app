@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { Store, select } from '@ngrx/store';
-import { Country } from '../../models/country.model';
+import { Country, MapType } from '../../models/country.model';
 import { selectCurrentCountry } from '../../store/selectors/country.selectors';
 import { Observable } from 'rxjs';
 
@@ -10,9 +10,15 @@ import { Observable } from 'rxjs';
   styleUrl: './capital.component.scss',
 })
 export class CapitalComponent {
-  country$: Observable<Country>;
+  country$: Observable<Country | undefined>;
+  mapTypeMenuItems: MapType[] = ['roadmap', 'satellite'];
+  selectedMapType: MapType = 'roadmap';
 
   constructor(private store: Store) {
     this.country$ = this.store.pipe(select(selectCurrentCountry));
+  }
+
+  changeMapType(mapType: MapType): void {
+    this.selectedMapType = mapType;
   }
 }

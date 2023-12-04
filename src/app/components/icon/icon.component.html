@@ -1,121 +1,124 @@
 <ng-container [ngSwitch]="type">
   <span
     *ngSwitchCase="'01d'"
-    [ngStyle]="{ 'font-size': size, color: color }"
-    class="material-symbols-outlined yellow"
+    [ngStyle]="{ 'font-size': fontSize ? fontSize + 'px' : '' }"
+    [ngClass]="['material-symbols-outlined', color ? color : 'icon-' + type]"
   >
     clear_day
   </span>
   <span
     *ngSwitchCase="'01n'"
-    [ngStyle]="{ 'font-size': size, color: color }"
-    class="material-symbols-outlined dark-grey"
+    [ngStyle]="{ 'font-size': fontSize ? fontSize + 'px' : '' }"
+    [ngClass]="['material-symbols-outlined', color ? color : 'icon-' + type]"
   >
     clear_night
   </span>
   <span
     *ngSwitchCase="'02d'"
-    [ngStyle]="{ 'font-size': size, color: color }"
-    class="material-symbols-outlined yellow"
+    [ngStyle]="{ 'font-size': fontSize ? fontSize + 'px' : '' }"
+    [ngClass]="['material-symbols-outlined', color ? color : 'icon-' + type]"
   >
     partly_cloudy_day
   </span>
   <span
     *ngSwitchCase="'02n'"
-    [ngStyle]="{ 'font-size': size, color: color }"
-    class="material-symbols-outlined dark-grey"
+    [ngStyle]="{ 'font-size': fontSize ? fontSize + 'px' : '' }"
+    [ngClass]="['material-symbols-outlined', color ? color : 'icon-' + type]"
   >
     partly_cloudy_night
   </span>
   <span
     *ngSwitchCase="'03d'"
-    [ngStyle]="{ 'font-size': size, color: color }"
-    class="material-symbols-outlined blue"
+    [ngStyle]="{ 'font-size': fontSize ? fontSize + 'px' : '' }"
+    [ngClass]="['material-symbols-outlined', color ? color : 'icon-' + type]"
   >
     cloudy
   </span>
   <span
     *ngSwitchCase="'03n'"
-    [ngStyle]="{ 'font-size': size, color: color }"
-    class="material-symbols-outlined blue"
+    [ngStyle]="{ 'font-size': fontSize ? fontSize + 'px' : '' }"
+    [ngClass]="['material-symbols-outlined', color ? color : 'icon-' + type]"
   >
     cloudy </span
   ><span
     *ngSwitchCase="'04d'"
-    [ngStyle]="{ 'font-size': size, color: color }"
-    class="material-symbols-outlined blue"
+    [ngStyle]="{ 'font-size': fontSize ? fontSize + 'px' : '' }"
+    [ngClass]="['material-symbols-outlined', color ? color : 'icon-' + type]"
   >
     cloudy
   </span>
   <span
     *ngSwitchCase="'04n'"
-    [ngStyle]="{ 'font-size': size, color: color }"
-    class="material-symbols-outlined blue"
+    [ngStyle]="{ 'font-size': fontSize ? fontSize + 'px' : '' }"
+    [ngClass]="['material-symbols-outlined', color ? color : 'icon-' + type]"
   >
     cloudy </span
   ><span
     *ngSwitchCase="'09d'"
-    [ngStyle]="{ 'font-size': size, color: color }"
-    class="material-symbols-outlined blue"
+    [ngStyle]="{ 'font-size': fontSize ? fontSize + 'px' : '' }"
+    [ngClass]="['material-symbols-outlined', color ? color : 'icon-' + type]"
   >
     rainy
   </span>
   <span
     *ngSwitchCase="'09n'"
-    [ngStyle]="{ 'font-size': size, color: color }"
-    class="material-symbols-outlined blue"
+    [ngStyle]="{ 'font-size': fontSize ? fontSize + 'px' : '' }"
+    [ngClass]="['material-symbols-outlined', color ? color : 'icon-' + type]"
   >
     rainy </span
   ><span
     *ngSwitchCase="'10d'"
-    [ngStyle]="{ 'font-size': size, color: color }"
-    class="material-symbols-outlined blue"
+    [ngStyle]="{ 'font-size': fontSize ? fontSize + 'px' : '' }"
+    [ngClass]="['material-symbols-outlined', color ? color : 'icon-' + type]"
   >
     rainy
   </span>
   <span
     *ngSwitchCase="'10n'"
-    [ngStyle]="{ 'font-size': size, color: color }"
-    class="material-symbols-outlined blue"
+    [ngStyle]="{ 'font-size': fontSize ? fontSize + 'px' : '' }"
+    [ngClass]="['material-symbols-outlined', color ? color : 'icon-' + type]"
   >
     rainy </span
   ><span
     *ngSwitchCase="'11d'"
-    [ngStyle]="{ 'font-size': size, color: color }"
-    class="material-symbols-outlined blue"
+    [ngStyle]="{ 'font-size': fontSize ? fontSize + 'px' : '' }"
+    [ngClass]="['material-symbols-outlined', color ? color : 'icon-' + type]"
     >thunderstorm
   </span>
   <span
     *ngSwitchCase="'11n'"
-    [ngStyle]="{ 'font-size': size, color: color }"
-    class="material-symbols-outlined blue"
+    [ngStyle]="{ 'font-size': fontSize ? fontSize + 'px' : '' }"
+    [ngClass]="['material-symbols-outlined', color ? color : 'icon-' + type]"
     >thunderstorm
   </span>
   <span
     *ngSwitchCase="'13d'"
-    [ngStyle]="{ 'font-size': size, color: color }"
-    class="material-symbols-outlined blue"
+    [ngStyle]="{ 'font-size': fontSize ? fontSize + 'px' : '' }"
+    [ngClass]="['material-symbols-outlined', color ? color : 'icon-' + type]"
     >cloudy_snowing
   </span>
   <span
     *ngSwitchCase="'13n'"
-    [ngStyle]="{ 'font-size': size, color: color }"
-    class="material-symbols-outlined blue"
+    [ngStyle]="{ 'font-size': fontSize ? fontSize + 'px' : '' }"
+    [ngClass]="['material-symbols-outlined', color ? color : 'icon-' + type]"
     >cloudy_snowing
   </span>
   <span
     *ngSwitchCase="'50d'"
-    [ngStyle]="{ 'font-size': size, color: color }"
-    class="material-symbols-outlined dark-grey"
+    [ngStyle]="{ 'font-size': fontSize ? fontSize + 'px' : '' }"
+    [ngClass]="['material-symbols-outlined', color ? color : 'icon-' + type]"
     >foggy
   </span>
   <span
     *ngSwitchCase="'50n'"
-    [ngStyle]="{ 'font-size': size, color: color }"
-    class="material-symbols-outlined dark-grey"
+    [ngStyle]="{ 'font-size': fontSize ? fontSize + 'px' : '' }"
+    [ngClass]="['material-symbols-outlined', color ? color : 'icon-' + type]"
     >foggy
   </span>
-  <span *ngSwitchDefault>
-    <img *ngIf="type" [src]="type" />
+  <span
+    *ngSwitchDefault
+    [ngStyle]="{ 'font-size': fontSize ? fontSize + 'px' : '' }"
+    [ngClass]="['material-symbols-outlined', color ? color : 'black']"
+    >{{ type }}
   </span>
 </ng-container>

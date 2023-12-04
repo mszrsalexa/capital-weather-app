@@ -7,6 +7,6 @@ import { Component, Input } from '@angular/core';
 })
 export class IconComponent {
   @Input() type: string | undefined;
-  @Input() size: string | undefined;
-  @Input() color: string | undefined;
+  @Input() fontSize?: number;
+  @Input() color?: 'white' | 'green' | 'black' | string;
 }

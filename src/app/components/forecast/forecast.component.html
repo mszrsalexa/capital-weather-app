@@ -1,0 +1,16 @@
+<div class="forecast-container">
+  <div
+    *ngIf="country?.fiveDayForecast as fiveDayForecast"
+    class="day-container"
+  >
+    <span *ngFor="let day of fiveDayForecast?.forecast" class="day-block">
+      <app-icon [type]="day.icon"></app-icon>
+      <span>
+        <span class="temp-min">{{ day.temp_min | celsius }} </span>
+        <span class="temp-max">{{ day.temp_max | celsius }} </span>
+      </span>
+    </span>
+  </div>
+
+  <div id="chartdiv"></div>
+</div>

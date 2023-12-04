@@ -1,0 +1,33 @@
+@import "variables";
+
+.button {
+  border: 0;
+  background-color: $white;
+  border-radius: 50%;
+  height: 40px;
+  width: 40px;
+  padding: 8px;
+  cursor: pointer;
+  min-width: 0;
+  align-items: center;
+  line-height: normal;
+}
+
+.menu-item-btn {
+  display: block;
+}
+
+.menu-item {
+  display: flex;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+.menu-item-label {
+  font-family: $font-family;
+  color: $black;
+  font-size: 18px;
+  line-height: normal;
+  font-weight: $font-weight-normal;
+  text-transform: capitalize;
+}

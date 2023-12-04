@@ -5,7 +5,7 @@ import { Pipe, PipeTransform } from '@angular/core';
 })
 export class CelsiusPipe implements PipeTransform {
   transform(value: number | string | undefined): string {
-    if (!value) {
+    if (value === null || value === undefined) {
       return '';
     }
 

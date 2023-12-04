@@ -1,8 +1,24 @@
 @import "variables";
 
-.container {
-  background-color: $pozi-light-grey;
+.map-container {
+  position: relative;
   height: 100vh;
-  padding-left: 50%;
-  padding-top: 15%;
+
+  .weather-container,
+  .location-container {
+    position: absolute;
+    top: 30%;
+    display: flex;
+    z-index: 2;
+    gap: 8px;
+  }
+
+  .weather-container {
+    right: 15%;
+    flex-direction: column;
+  }
+
+  .location-container {
+    left: 20%;
+  }
 }

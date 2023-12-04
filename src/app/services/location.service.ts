@@ -1,7 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import {
-  EMPTY,
   Observable,
   catchError,
   forkJoin,
@@ -16,56 +15,66 @@ import {
   DistanceMatrixElement,
   DistanceMatrixResponse,
 } from '../models/country.model';
+import { environment } from '../../environments/environment';
 
 @Injectable({
   providedIn: 'root',
 })
 export class LocationService {
-  private apiKey = 'AIzaSyAWNbd99g7AMtXsCPHoufqDwLR24NOhbXs';
+  private apiKey = environment.googleMapsApiKey;
   private maxDestinationsPerRequest = 25;
 
   distanceMatrixData: DistanceMatrixElement[] = [];
   destinations: Country[] = [];
 
-  currentCountry: Country = {
-    countryName: 'Hungary',
-    capitalName: 'Budapest',
-    flag: '',
-    coordinates: {
-      lat: 47.5,
-      lng: 19.08,
-    },
+  defaultLocation: Coordinates = {
+    lat: 47.5,
+    lng: 19.08,
   };
 
   constructor(private http: HttpClient) {}
 
-  findCurrentCountry(euCountries: Country[]): Observable<Country> {
+  findCurrentLocation(euCountries: Country[]): Observable<Coordinates> {
     this.destinations = euCountries;
 
     const targetLocation$ = from(this.getLocation());
-    const chunks = this.splitDestinationsIntoChunks();
 
-    const requests = chunks.map((chunk) => {
-      const destinations = chunk
-        .map(
-          (country: Country) =>
-            `${country.coordinates.lat},${country.coordinates.lng}`
-        )
-        .join('|');
+    return targetLocation$.pipe(
+      take(1),
+      switchMap((targetLocation) => {
+        if (this.isDefaultLocation(targetLocation)) {
+          return of(this.defaultLocation);
+        } else {
+          const chunks = this.splitDestinationsIntoChunks();
 
-      return this.getDistanceMatrixObservable(targetLocation$, destinations);
-    });
+          const requests = chunks.map((chunk) => {
+            const destinations = chunk
+              .map(
+                (country: Country) =>
+                  `${country.coordinates.lat},${country.coordinates.lng}`
+              )
+              .join('|');
 
-    return forkJoin(requests).pipe(
-      switchMap((responses: DistanceMatrixResponse[]) =>
-        this.processResponses(responses)
-      )
+            return this.getDistanceMatrixObservable(
+              targetLocation,
+              destinations
+            );
+          });
+
+          return forkJoin(requests).pipe(
+            switchMap((responses: DistanceMatrixResponse[]) =>
+              this.processResponses(responses)
+            ),
+            catchError(() => of(this.defaultLocation))
+          );
+        }
+      })
     );
   }
 
   private processResponses(
     responses: DistanceMatrixResponse[]
-  ): Observable<Country> {
+  ): Observable<Coordinates> {
     const validResponses = responses.filter((response) => response !== null);
 
     this.distanceMatrixData = validResponses.flatMap((data: any) =>
@@ -79,25 +88,25 @@ export class LocationService {
           current.distance.value < closest.distance.value ? current : closest
       );
 
-    this.currentCountry = this.destinations[
+    const closestCountry = this.destinations[
       this.distanceMatrixData.indexOf(closestElement)
     ] as Country;
 
-    return of(this.currentCountry);
+    return of(closestCountry.coordinates);
   }
 
   private getDistanceMatrixObservable(
-    targetLocation$: Observable<Coordinates>,
+    targetLocation: Coordinates,
     destinations: string
   ): Observable<DistanceMatrixResponse> {
-    return targetLocation$.pipe(
-      take(1),
-      switchMap((targetLocation) => {
-        const distanceMatrixUrl = `/maps/api/distancematrix/json?origins=${targetLocation.lat},${targetLocation.lng}&destinations=${destinations}&key=${this.apiKey}`;
-
-        return this.http.get<DistanceMatrixResponse>(distanceMatrixUrl);
-      })
-    );
+    const distanceMatrixUrl = `/maps/api/distancematrix/json?origins=${targetLocation.lat},${targetLocation.lng}&destinations=${destinations}&key=${this.apiKey}`;
+    return this.http
+      .get<DistanceMatrixResponse>(distanceMatrixUrl)
+      .pipe(
+        catchError(() =>
+          of({ rows: [{ elements: [] }] } as DistanceMatrixResponse)
+        )
+      );
   }
 
   private getLocation(): Promise<Coordinates> {
@@ -111,11 +120,18 @@ export class LocationService {
           resolve(currentLocation);
         },
         (error) => {
-          console.log(`Error getting location: ${error.message}`);
-          resolve(this.currentCountry.coordinates);
+          console.log(error.message);
+          resolve(this.defaultLocation);
         }
       );
     });
+  }
+
+  private isDefaultLocation(location: Coordinates): boolean {
+    return (
+      location.lat === this.defaultLocation.lat &&
+      location.lng === this.defaultLocation.lng
+    );
   }
 
   private splitDestinationsIntoChunks(): Country[][] {
